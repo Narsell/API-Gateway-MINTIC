@@ -1,5 +1,5 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
-const serverConfig = require('.../server');
+const serverConfig = require('../server');
 
 class PaymentsAPI extends RESTDataSource {
 
@@ -8,11 +8,11 @@ class PaymentsAPI extends RESTDataSource {
         this.baseURL = serverConfig.payments_api_url;
     }
 
-    async getPurchaseInfo(){
+    async getPurchaseInfo(purchaseId){
         return await this.get(`/purchase/id/${purchaseId}`);
     }
 
-    async purchaseItems(){
+    async purchaseItems(purchaseInput){
         return await this.post('/purchase', { ... purchaseInput} );
     }
 

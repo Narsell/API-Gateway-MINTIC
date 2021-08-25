@@ -8,7 +8,7 @@ const paymentsTypeDefs = gql `
         compraEstado: String!
     }
 
-    type ShippingData {
+    input ShippingDataInput {
         nombre: String!
         ciudad: String! 
         departamento: String! 
@@ -17,36 +17,67 @@ const paymentsTypeDefs = gql `
         email: String! 
     }
 
-    type BillingData {
+    type ShippingDataOutput {
+        id: ID!
+        nombre: String!
+        ciudad: String! 
+        departamento: String! 
+        direccion: String! 
+        celular: String! 
+        email: String! 
+        fechaEntrega: String
+        compraId: ID!
+    }
+
+    input BillingDataInput {
         tipoDocumento: Int!
         numeroDocumento: String! 
         numeroCelular: String! 
         metodoPago: Int! 
         precioTotal: Float! 
-      }
+    }
 
-    type CartItemsData {
+    type BillingDataOutput {
+        id: ID!
+        tipoDocumento: Int!
+        numeroDocumento: String! 
+        numeroCelular: String! 
+        metodoPago: Int! 
+        precioTotal: Float! 
+        compraId: ID!
+    }
+
+    input CartItemsDataInput {
         productoId: ID!
         productoCantidad: Int!
         productoPrecioUnitario: Float!
         productoPrecioTotal: Float!        
     }
 
-    type PurchaseInput {
-        informacionEnvio: ShippingData!
-        informacionFacturacion: BillingData!
-        informacionCarrito: [CartItemsData!]!
+    type CartItemsDataOutput {
+        id: ID!
+        productoId: ID!
+        productoCantidad: Int!
+        productoPrecioUnitario: Float!
+        productoPrecioTotal: Float!     
+        compraId: ID!   
+    }
+
+    input PurchaseInput {
+        informacionEnvio: ShippingDataInput!
+        informacionFacturacion: BillingDataInput!
+        informacionCarrito: [CartItemsDataInput!]!
     }
 
     type PurchaseOutput {
-        informacionEnvio: ShippingData!
-        informacionFacturacion: BillingData!
-        informacionCarrito: [CartItemsData!]!
+        informacionEnvio: ShippingDataOutput!
+        informacionFacturacion: BillingDataOutput!
+        informacionCarrito: [CartItemsDataOutput!]!
         informacionCompra: PurchaseData!
     }
 
     type Mutation {
-        purchaseItems(purchaseInput: PurchaseInput!): PurchaseInput
+        purchaseItems(purchaseInput: PurchaseInput!): PurchaseOutput
     }
 
     type Query {
