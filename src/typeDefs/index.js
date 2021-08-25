@@ -1,8 +1,6 @@
-//Se llama al typedef (esquema) de cada submodulo
 const inventoryTypeDefs = require('./inventory_type_def');
+const paymentsTypeDefs = require('./paymentsTypeDefs');
 
-//Se unen
-const schemasArrays = [inventoryTypeDefs];
+const schemasArrays = [paymentsTypeDefs, inventoryTypeDefs];
 
-//Se exportan
-module.exports = schemasArrays; 
+module.exports = schemasArrays;
