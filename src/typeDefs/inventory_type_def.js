@@ -1,42 +1,59 @@
 const { gql } = require('apollo-server');
 
 const inventoryTypeDefs = gql`
-    type Item {
-        itemId: ID!
-        itemName: String!
-        itemDescription: String!
-        itemSizes: [String]!
-        itemPrice: Float!
-        itemStock: Int!
-        itemImage: String
+    type ItemOutput {
+        id: Int!
+        name: String!
+        description: String!
+        stock: Int!
+        price: Float!
+        size: [String]!        
+        image: String!
     }
 
     input ItemInput{
-        itemName: String!
-        itemDescription: String!
-        itemSizes: [String]!
-        itemPrice: Float!
-        itemStock: Int!
+        name: String!
+        description: String!
+        stock: Int!
+        price: Float!
+        size: [String]!
+        image: String!
     }
 
     input ItemInputDelete{
-        itemId: ID!
-        itemName: String!
-        itemDescription: String!
-        itemSizes: [String]!
-        itemPrice: Float!
-        itemStock: Int!
+        id: Int!
+        name: String!
+        description: String!
+        size: [String]!
+        price: Float!
+        stock: Int!
     }
 
-    extend type Query{
-        itemById(itemId: String!): Item
-        itemList(): [Item]
+    type ItemAll{
+        name: String!
+        stock: Int!
+        size: [String]!
+        price: Float!
+        image: String!
+    }
+
+    input GetStockByItem{
+        id: Int!
+        stock: Int!
+    }
+
+    type Query{
+        itemById(id: Int!): ItemOutput!
+        itemList: [ItemOutput]
+        stockByItem(id: Int!, stock: Int!): Boolean!
     }
 
     type Mutation{
-        itemBuyed(itemStock: Int!): Item
-        createItem(item: ItemInput!): Item
-        deleteItem(item: ItemInputDelete!): Item
+        itemBuyed(id: Int!, stock: Int!): ItemOutput!
+
+        createItem(itemInput: ItemInput!): ItemOutput!
+
+        deleteItem(id: Int!): Boolean!
     }
 `;
 

@@ -1,25 +1,25 @@
 const inventoryResolver = {
     Query: {
-        itemById: (parent, {itemId}, {dataSources, id}) => {
-            if(itemId == id)
-                return dataSources.itemAPI.itemById(id)
-            else
-                return null
+        itemById: async (_, {id}, {dataSources}) => {
+            return dataSources.itemAPI.itemById(id);
         },
-        itemList: (parent) =>{
-            return dataSources.itemAPI.itemList()
+        itemList: async (_, __, {dataSources}) => {
+            return dataSources.itemAPI.itemList();
+        },
+        stockByItem: async (_, {id, stock}, {dataSources}) => {
+            console.log(id, stock)
+            return dataSources.itemAPI.getStockById(id, stock);
         }
     },
     Mutation: {
-        createItem: (parent, {item}, {dataSources}) => {
-            
-            return dataSources.itemAPI.createItem(item)
+        createItem: (_, {itemInput}, {dataSources}) => {
+            return dataSources.itemAPI.createItem(itemInput)
         },
-        deleteItem: (parent, {item}, {dataSources}) => {
-            if(item == dataSources.item)
-                return dataSources.itemAPI.deleteItem(item)
-            else
-                return null
+        deleteItem: (_, {id}, {dataSources}) => {
+            return dataSources.itemAPI.deleteItem(id)
+        },
+        itemBuyed: (_, {id, stock}, {dataSources}) => {
+            return dataSources.itemAPI.updateItem(id, stock)
         }
     }
 };
