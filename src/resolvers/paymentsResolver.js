@@ -2,12 +2,12 @@ const paymentsResolver = {
 
     Query: {
         getPurchaseInfo: (parent, { purchaseId }, { dataSources }) => {
-            return dataSources.paymentsAPI.getPurchaseInfo(purchaseId)
+            return dataSources.paymentsAPI.getPurchaseInfo(purchaseId);
         },
     },
     Mutation: {
         purchaseItems: (parent, { purchaseInput }, { dataSources }) => {
-            return dataSources.paymentsAPI.purchaseItems(purchaseInput)
+            return dataSources.paymentsAPI.purchaseItems(purchaseInput);
         },
     } 
 
