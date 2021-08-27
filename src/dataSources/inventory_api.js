@@ -36,7 +36,7 @@ class ItemAPI extends RESTDataSource {
 			let itemUpdated = new Object(JSON.parse(JSON.stringify(item)));
 
 			console.log(type(itemUpdated))
-			return await this.patch(`/inventory/item/${id}`, itemUpdated)
+			return await this.put(`/inventory/item/${id}`, itemUpdated)
 		} else {
 			return item
 		}
